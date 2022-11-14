@@ -12,10 +12,9 @@ struct Technician: Codable {
     let name: String
     var services: [Service]
     var khach: [Khach]
-    var opi:  [Opi] = []
     var weekEarn: [WeekEarn] = []
     
-    init(name: String, services:[Service] = dvTech, khach: [Khach] = khachmau, opi: [Opi] = opiMau){
+    init(name: String, services:[Service] = dvTech, khach: [Khach] = khachmau){
         self.name = name
         self.services = services
         self.khach = khach
@@ -71,13 +70,6 @@ extension Technician {
     
 }//end extension
 
-struct Opi: Codable {
-    var name: String
-    //var sample: Image
-}
-
-let opiMau = [Opi(name: "Buble Bath"),
-              Opi(name: "It's a boy")]
 
 
 //enum SoTuan: String, CaseIterable, Identifiable {

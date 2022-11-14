@@ -8,7 +8,15 @@
 import Foundation
 
 
-struct WeekEarn: Codable {
-    var tuan: String = ""
-    var earn: Int = 0
+struct WeekEarn: Codable, Identifiable {
+    var id: UUID
+    var tuan: String
+    var earn: Int
+    
+    init(id: UUID = UUID(), tuan: String, earn: Int) {
+        self.id = id
+        self.tuan = tuan
+        self.earn = earn
+    }
+    
 }

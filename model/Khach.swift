@@ -42,7 +42,9 @@ struct Khach: Codable, Identifiable, Equatable {
         }
         return tongChi
     }
-    
+    var today: Bool {
+        ngay.formatted(date: .numeric, time: .omitted) == Date().formatted(date: .numeric, time: .omitted)
+    }
     var tuan: Bool {
         ngay.qua7Ngay < Date.now
     }
