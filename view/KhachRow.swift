@@ -9,7 +9,7 @@ import SwiftUI
 
 struct KhachRow: View {
     var khach: Khach
-    let ngay = Date()
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -18,7 +18,7 @@ struct KhachRow: View {
                 Spacer()
                 Text("$\(khach.khachTra())")
             }
-                .foregroundColor(hnay() ? .green : .gray)
+                .foregroundColor(khach.today ? .green : .gray)
             
             Text(khach.ngay, style: .date)
                 .font(.footnote)
@@ -26,12 +26,7 @@ struct KhachRow: View {
         }.padding(6)
            
     }
-    func hnay() -> Bool {
-        if (khach.ngay.formatted(date: .complete, time: .omitted) == ngay.formatted(date: .complete, time: .omitted)) {
-            return true
-        }
-        return false
-    }
+
    
 }
 
