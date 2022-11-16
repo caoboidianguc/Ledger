@@ -11,16 +11,16 @@ struct ClientEdit: View {
     @EnvironmentObject var worker: KhachData
     @Binding var client: Khach.ThemKhach
     @State var newSer = Service.themDv()
-    var dichvu: [String] {
-        var ds: [String] = []
-        for ser in client.dvDone {
-            ds.append(ser.dichVu)
-        }
-        return ds
-    }
-    var danhmuc: String {
-        ListFormatter.localizedString(byJoining: dichvu)
-    }
+//    var dichvu: [String] {
+//        var ds: [String] = []
+//        for ser in client.dvDone {
+//            ds.append(ser.dichVu)
+//        }
+//        return ds
+//    }
+//    var danhmuc: String {
+//        ListFormatter.localizedString(byJoining: dichvu)
+//    }
    
     var body: some View {
         ScrollView {
@@ -28,7 +28,7 @@ struct ClientEdit: View {
                 TextField("Name:", text: $client.name)
                 TextField("Phone", text: $client.sdt)
                 TextField("Note:", text: $client.desc)
-                Text(danhmuc)
+                //Text(danhmuc)
             }.padding()
             
             ChonDichVu(client: $client)

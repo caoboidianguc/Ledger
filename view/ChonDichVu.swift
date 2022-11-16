@@ -14,22 +14,34 @@ struct ChonDichVu: View {
                                GridItem(spacing:5, alignment: .center),
                                GridItem(spacing:5, alignment: .center)]
     
-    
+    var dichvu: [String] {
+        var ds: [String] = []
+        for ser in client.dvDone {
+            ds.append(ser.dichVu)
+        }
+        return ds
+    }
+    var danhmuc: String {
+        ListFormatter.localizedString(byJoining: dichvu)
+    }
     
     var body: some View {
-        LazyVGrid (columns: cotGrid,alignment: .center, spacing: 5, content: {
-            ForEach(worker.khach.services){ serv in
-                Button(action: {
-                    client.dvDone.append(serv)
-                }, label: {
-                    VStack {
-                    Text(serv.dichVu)
-                    Text("$\(serv.gia)")
-                    }.padding()
-                            
-                })
-            }
-        })
+        VStack {
+            Text("Picked: \(danhmuc)")
+            LazyVGrid (columns: cotGrid,alignment: .center, spacing: 5, content: {
+                ForEach(worker.khach.services){ serv in
+                    Button(action: {
+                        client.dvDone.append(serv)
+                    }, label: {
+                        VStack {
+                        Text(serv.dichVu)
+                        Text("$\(serv.gia)")
+                        }.padding()
+                                
+                    })
+                }
+            })
+        }
     }
 }
 

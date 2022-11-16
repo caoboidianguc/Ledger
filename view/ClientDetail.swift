@@ -12,6 +12,7 @@ struct ClientDetail: View {
     @Binding var khach: Khach
     @State private var updateKhach: Khach.ThemKhach = Khach.ThemKhach()
     @State private var suadoi = false
+    @State private var xoa = false
     
     var body: some View {
         List {
@@ -38,6 +39,15 @@ struct ClientDetail: View {
                 Text("Time visited: \(khach.diem)")
                 Text("Total: $\(khach.khachTra())")
             }
+            Button("Delete This Client"){
+                xoa = true
+            }.foregroundColor(.red)
+                .confirmationDialog("You can't undo this!", isPresented: $xoa, actions: {
+                    Button{worker.delete(khach)} label: {
+                        Text("Sure! Delete.")
+                    }
+                    Button("Cancel", role: .cancel) { xoa = false}
+                })
         }.navigationTitle(Text("\(khach.name) visited"))
             .navigationBarItems(trailing: Button("Edit"){
                 suadoi = true
