@@ -13,6 +13,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) private var scene
     @State private var manhinh: chon = .khach
     enum chon {
+        case schedule
         case khach
         case dv
         case xep
@@ -20,6 +21,11 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $manhinh) {
+            ScheduleView()
+                .tabItem {
+                    Label("Schedule", systemImage: "calendar.badge.clock")
+                }
+                .tag(chon.schedule)
             
             ClientList()
                 

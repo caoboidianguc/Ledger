@@ -18,7 +18,7 @@ struct ClientList: View {
         NavigationView {
             List {
                 ForEach(worker.theoNgay()) { $khach in
-                    if khach.honTuan {
+                    if khach.trongTuan {
                         NavigationLink(destination: ClientDetail(khach: $khach) ){
                             KhachRow(khach: khach)
                         }

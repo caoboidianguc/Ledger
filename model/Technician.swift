@@ -43,38 +43,30 @@ extension Technician {
     func tongTuan() -> Int {
         var tong = 0
         for client in khach {
-            if !client.tuan {
+            if !client.hontuan {
                 tong += client.khachTra()
             }
         }
         return tong
     }
     
-//    func tong2Tuan() -> Int {
-//        var tong = 0
-//        for client in khach {
-//            if !client.tuan2 {
-//                tong += client.khachTra()
-//            }
-//        }
-//        return tong
-//    }
-//    func tong(tuan: SoTuan) -> Int {
-//        switch tuan {
-//        case .tuandau:
-//            return tongTuan()
-//        case .haiTuan:
-//            return tong2Tuan()
-//        }
-//    }
+    func tongNgay() -> Int {
+        var tong = 0
+        for lan in khach {
+            if lan.today {
+                tong += lan.khachTra()
+            }
+        }
+        return tong
+    }
     
+    func tinhTheoNgay() -> Int {
+        var tong = 0
+        for ngay in weekEarn {
+            tong += ngay.earn
+        }
+        return tong
+    }
 }//end extension
 
 
-
-//enum SoTuan: String, CaseIterable, Identifiable {
-//    case tuandau = "A Week"
-//    case haiTuan = "Two week"
-//    var id: String {self.rawValue}
-//    var name: String {self.rawValue}
-//}

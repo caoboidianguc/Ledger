@@ -15,26 +15,31 @@ struct XapSep: View {
     }
     @State private var text = ""
     @State private var listDaTim: [Khach] = []
+    @State private var daluu = false
     
     var body: some View {
         NavigationView {
             List {
+                HStack {
+                    Text("Total:")
+                    Spacer()
+                    Text("\(worker.khach.tinhTheoNgay())")
+                }
                 Section(header: Text("today")){
-                    Text("Last week earn: $\(tongNgay())")
-                        }
-                
-                Section(header: Text("last seven day")){
                     HStack {
-                        Text("Last week earn: $\(worker.khach.tongTuan())")
+                        Text("Earn: $\(worker.khach.tongNgay())")
+                            .foregroundColor(daluu ? .primary : .green)
                         Spacer()
                         Button(action: {
-                            let newWeek = WeekEarn(tuan: "\(Date.now.formatted(date: .numeric, time: .omitted))", earn: worker.khach.tongTuan())
+                            let newWeek = WeekEarn(tuan: "\(Date.now.formatted(date: .numeric, time: .omitted))", earn: worker.khach.tongNgay())
                             worker.khach.weekEarn.insert(newWeek, at: 0)
-                        }, label:{Image(systemName: "tray.and.arrow.down")})
+                            daluu = true
+                        }, label:{Image(systemName: "tray.and.arrow.down")}).disabled(daluu)
                     }
                         }
                 
-                Section(header: Text("week were saved")){
+                
+                Section(header: Text("days were saved")){
                     ForEach(worker.khach.weekEarn) { tuan in
                         HStack {
                             Text(tuan.tuan)
@@ -66,16 +71,6 @@ struct XapSep: View {
             fatalError("khong the lay khach")
         }
         return $worker.khach.khach[clientIndex]
-    }
-    
-    func tongNgay() -> Int {
-        var tong = 0
-        for lan in worker.khach.khach {
-            if lan.today {
-                tong += lan.khachTra()
-            }
-        }
-        return tong
     }
    
 }

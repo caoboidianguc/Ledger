@@ -80,17 +80,19 @@ class KhachData: ObservableObject {
         )
     }
     
-    func tuan(quangTuan: QuangTuan) -> Binding<[Khach]> {
+    func tuan(quaTuan: QuaTuan) -> Binding<[Khach]> {
         Binding<[Khach]> (
         get: {
             self.khach.khach.filter {
-                switch quangTuan {
+                switch quaTuan {
                 case .tuan:
-                    return $0.tuan
+                    return $0.haiNgay
                 case .nuaThang:
-                    return $0.honTuan
+                    return $0.overTuan
+                case .xaxoi:
+                    return $0.xahon
                 }
-            }.sorted(by: {$0.ngay > $1.ngay})
+            }.sorted(by: {$0.ngay < $1.ngay})
         },
         set: { khach in
             for client in khach {
@@ -105,9 +107,11 @@ class KhachData: ObservableObject {
 }
 
 
-enum QuangTuan: String, CaseIterable, Identifiable {
-    case tuan = "Last week"
-    case nuaThang = "Last two week"
+enum QuaTuan: String, CaseIterable, Identifiable {
+    case tuan = "Comming up"
+    case nuaThang = "Within 7 week"
+    case xaxoi = "Over week"
+    
     var id: String {self.rawValue}
     var name: String {self.rawValue}
 }

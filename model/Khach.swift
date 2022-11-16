@@ -42,15 +42,28 @@ struct Khach: Codable, Identifiable, Equatable {
         }
         return tongChi
     }
+    
+    var schedule: Bool {
+        ngay > Date.now
+    }
+    var haiNgay: Bool {
+        today && schedule && ngay < Date.now.quaNgay
+    }
+    var overTuan: Bool {
+        schedule && !haiNgay && ngay < Date.now.qua7Ngay
+    }
+    var xahon : Bool {
+        ngay >= Date().qua7Ngay
+    }
     var today: Bool {
         ngay.formatted(date: .numeric, time: .omitted) == Date().formatted(date: .numeric, time: .omitted)
     }
-    var tuan: Bool {
+    var hontuan: Bool {
         ngay.qua7Ngay < Date.now
     }
     
-    var honTuan: Bool {
-        !tuan && ngay < Date.now
+    var trongTuan: Bool {
+        !hontuan && ngay < Date.now
     }
         
 }//end Khach
@@ -111,6 +124,8 @@ extension Khach {
 let khachmau = [Khach(name: "hibi", sdt: "7642",dvDone:[Service(dichVu: "Full", gia: 50)], ngay: Date(timeIntervalSinceReferenceDate: 60*61*23*372*22)),
                 Khach(name: "Jubi", sdt: "8775", dvDone:[Service(dichVu: "talk", gia: 60)], ngay: Date(timeIntervalSinceReferenceDate: 60*60*24*362*22)),
                 Khach(name: "Linh", sdt: "8775", dvDone:[Service(dichVu: "read", gia: 70)], ngay: Date(timeIntervalSinceReferenceDate: 60*60*24*361*22)),
+                Khach(name: "Vu", sdt: "4242",dvDone:[Service(dichVu: "hems", gia: 50)], ngay: Date(timeIntervalSinceReferenceDate: 60*61*23*373*22)),
+                Khach(name: "Pham", sdt: "7373", dvDone:[Service(dichVu: "hair cut", gia: 60)], ngay: Date(timeIntervalSinceReferenceDate: 60*60*24*364*22)),
                 Khach(name: "Quang", sdt: "9070", dvDone:[Service(dichVu: "gaming", gia: 40)])]
 
 
@@ -118,5 +133,7 @@ extension Date {
     var qua7Ngay: Date {
         Calendar.autoupdatingCurrent.date(byAdding: .day, value: 7, to: self) ?? self
     }
-    
+    var quaNgay: Date {
+        Calendar.autoupdatingCurrent.date(byAdding: .day, value: 2, to: self) ?? self
+    }
 }
